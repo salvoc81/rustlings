@@ -8,8 +8,10 @@
 
 fn array_and_vec() -> ([i32; 4], Vec<i32>) {
     let a = [10, 20, 30, 40]; // a plain array
-    let v = // TODO: declare your vector here with the macro for vectors
-
+    let mut v:Vec<i32> = vec![10, 20, 30];// TODO: declare your vector here with the macro for vectors
+    // add an extra element
+    v.push(40);
+    
     (a, v)
 }
 
