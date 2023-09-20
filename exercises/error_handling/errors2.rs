@@ -17,14 +17,24 @@
 // one is a lot shorter!
 // Execute `rustlings hint errors2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 use std::num::ParseIntError;
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     let processing_fee = 1;
     let cost_per_item = 5;
-    let qty = item_quantity.parse::<i32>();
+    // Because the parse function returns a Result type,
+    // we can use the '?' which  is similar to the unwrap used in previous exercises
+    let qty = item_quantity.parse::<i32>()?;
+    // We could have concatenated multiple thing
+    // and do multiple checks and conversions using the ? operator on a single line
+    // assuming the function returns a Result type
+    /*
+    let qty = item_quantity.parse::<u8>()?
+    .to_string()
+    .parse::<u16>()?
+    .to_string()
+    .parse::<i32>()?;
+    */
 
     Ok(qty * cost_per_item + processing_fee)
 }
