@@ -16,14 +16,18 @@
 
 // Execute `rustlings hint errors5` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 use std::error;
 use std::fmt;
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), Box<dyn ???>> {
+
+// We need two unify two types of errors
+// 1): pretend_user_input.parse() returns a ParseIntError error
+// 2): PositiveNonzeroInteger::new(x) returns a CreationError enum if it fails
+// WE can use the std:error trait to unify the above two types of errors
+
+fn main() -> Result<(), Box<dyn error::Error>> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
     println!("output={:?}", PositiveNonzeroInteger::new(x)?);
