@@ -3,7 +3,7 @@
 // can offer. Follow the steps to complete the exercise.
 // Execute `rustlings hint iterators2` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+use std::vec;
 
 // Step 1.
 // Complete the `capitalize_first` function.
@@ -12,7 +12,11 @@ pub fn capitalize_first(input: &str) -> String {
     let mut c = input.chars();
     match c.next() {
         None => String::new(),
-        Some(first) => ???,
+        Some(first) => 
+            // let capital = first.to_uppercase();
+            // format!("{capital}{}", c.as_str())
+            // format!("{first.to_uppercase().to_string()}{}", c.as_str()),
+            format!("{}{}", first.to_uppercase().to_string(), c.as_str()),
     }
 }
 
@@ -21,7 +25,22 @@ pub fn capitalize_first(input: &str) -> String {
 // Return a vector of strings.
 // ["hello", "world"] -> ["Hello", "World"]
 pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    vec![]
+    // Solution 1
+    /*
+    let mut v: Vec<String> = vec![];
+    for s in words.iter() {
+        v.push(capitalize_first(s));
+    }
+    
+    v
+    */
+
+    // Solution 2: using the map function
+    words
+        .iter()
+        .map(|word| capitalize_first(word))
+        .collect() //transforms the iterator into a collection (a vector in our case)
+
 }
 
 // Step 3.
@@ -29,7 +48,23 @@ pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
 // Return a single string.
 // ["hello", " ", "world"] -> "Hello World"
 pub fn capitalize_words_string(words: &[&str]) -> String {
-    String::new()
+
+    /*
+    // Solution 1
+    let mut v: Vec<String> = vec![];
+    for s in words.iter() {
+        v.push(capitalize_first(s));
+    }
+    
+    v.concat()
+    */
+
+    // Solution 2: exactly as we did in Solution 2 of previous exercise
+    words
+        .iter()
+        .map(|word| capitalize_first(word))
+        .collect() // collect know that should concatenate the slices into a single string!
+
 }
 
 #[cfg(test)]
