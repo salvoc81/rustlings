@@ -6,8 +6,6 @@
 //    list_of_results functions.
 // Execute `rustlings hint iterators3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum DivisionError {
     NotDivisible(NotDivisibleError),
@@ -23,21 +21,53 @@ pub struct NotDivisibleError {
 // Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
 // Otherwise, return a suitable error.
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
-    todo!();
+    // First lets check that 'a' can be divided by 'b' using the module
+    // return an error
+
+    if a == 0 && b > 0 {
+        Ok(0)
+    }
+    else if b == 0 {
+        return Err(DivisionError::DivideByZero)
+    }
+    else if a % b != 0 {
+        let division_err = NotDivisibleError{dividend: a, divisor: b};
+        Err(DivisionError::NotDivisible(division_err))
+    }
+    else {
+        Ok(a/b)
+    }
+
 }
 
 // Complete the function and return a value of the correct type so the test passes.
 // Desired output: Ok([1, 11, 1426, 3])
-fn result_with_list() -> () {
+fn result_with_list() -> Result<Vec<i32>, DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
     let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    division_results.collect()
 }
 
 // Complete the function and return a value of the correct type so the test passes.
 // Desired output: [Ok(1), Ok(11), Ok(1426), Ok(3)]
-fn list_of_results() -> () {
+fn list_of_results() -> Vec<Result<i32, DivisionError>> {
     let numbers = vec![27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+
+    // Solution 1: simply add collect() to the end of map function
+    // Collect is very smart!
+    let division_results = numbers.into_iter().map(|n| divide(n, 27)).collect();
+    division_results
+
+    /*
+    // Solution 2: iterate through the mapped elements
+    // and push one by one to a new output vector
+    let mut results: Vec<Result<i32, DivisionError>> = Vec::new();
+    for res in division_results.collect::<Vec<_>>() {
+        results.push(res);
+    }
+
+    results
+    */
 }
 
 #[cfg(test)]
