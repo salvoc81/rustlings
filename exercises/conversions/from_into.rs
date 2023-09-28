@@ -35,10 +35,39 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
-
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        // call the Default implementation for Person if the String is empty
+        if s.len() == 0 {
+            return Person::default();
+        }
+        else {
+            let mut person_parts = s.split(',');
+            let Some(name) = person_parts.next() else {
+                return Person::default();
+            };
+            // check that the name is not empty
+            if name.is_empty() {
+                return Person::default();
+            }
+
+            // let age = person_parts.next().map(|x| x.parse().unwrap());
+            let age = person_parts.next().map(|x| x.parse::<usize>());
+
+            if let Some(_too_many_commas) = person_parts.next() {
+                return Person::default();
+            }
+
+            match age {
+                Some(Ok(num)) => Person {
+                    name: name.to_string(),
+                    age: num,
+                },
+                _ => Person::default(),
+            }
+
+
+        }
     }
 }
 
